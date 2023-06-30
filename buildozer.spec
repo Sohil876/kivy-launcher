@@ -179,7 +179,7 @@ android.manifest.launch_mode = standard
 #android.copy_libs = 1
 
 # (str) The Android arch to build for, choices: armeabi-v7a, arm64-v8a, x86
-android.archs = armeabi-v7a,arm64-v8a
+android.archs = armeabi-v7a
 
 #
 # Python for android (p4a) specific
