@@ -36,6 +36,8 @@ jobs:
       run: |
         touch main.py
         buildozer android debug
+    - name: Output filename
+      run: find bin/ -type f -name "*.apk"
    # - name: buildozer android release
    #   env:
    #     BUILDOZER_ALLOW_KIVY_ORG_DOMAIN: 1 # export BUILDOZER_ALLOW_ORG_TEST_DOMAIN=1
@@ -43,3 +45,9 @@ jobs:
     #    touch main.py
     #    buildozer android release
 
+    - name: Upload apk
+      uses: actions/upload-artifact@v3
+      with:
+        name: android-debug
+        path: ./bin/*.apk
+        if-no-files-found: error
