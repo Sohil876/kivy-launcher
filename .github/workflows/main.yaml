@@ -4,47 +4,46 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-  schedule:
-    # every 1st day of the month at 10:30
-    - cron: '30 10 1 * *'
+
+env:
+  PYTHONFORANDROID_PREREQUISITES_INSTALL_INTERACTIVE: 0
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  Integration:
+    strategy:
+      matrix:
+        os:
+          - 'ubuntu-latest'
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v3
+    - name: Setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - uses: actions/checkout@v3
+    - name: Setup environment
+      run: pip install Cython buildozer kivy kivymd
+    #    pip install -e .
 
-      # used to cache dependencies with a timeout
-      - name: Get Date
-        id: get-date
-        run: |
-          echo "::set-output name=date::$(/bin/date -u "+%Y%m%d")"
-        shell: bash
+    #- run: buildozer --help
+    #- run: buildozer init
+    - name: SDK, NDK and p4a download
+      run: |
+        sed -i.bak "s/# android.accept_sdk_license = False/android.accept_sdk_license = True/" buildozer.spec
+        sed -i.bak "s/#p4a.branch = master/p4a.branch = develop/" buildozer.spec
+        buildozer android p4a -- --help
+    # Install OS specific dependencies
+    - name: Install Linux dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: sudo apt -y install automake default-jre default-jdk
 
-      #- name: Cache Buildozer global directory
-       # uses: actions/cache@v3
-      #  with:
-       #   path: .buildozer_global
-        #  key: buildozer-global-${{ hashFiles('buildozer.spec') }} # Replace with your path
+    - name: buildozer android debug
+      run: |
+        touch main.py
+        buildozer android debug
+    - name: buildozer android release
+      run: |
+        touch main.py
+        export BUILDOZER_ALLOW_ORG_TEST_DOMAIN=1
+        buildozer android release
 
-     # - uses: actions/cache@v3
-      #  with:
-       #   path: .buildozer
-      #    key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}
-
-      - name: Install java
-        run: sudo apt install -y default-jre default-jdk
-
-      - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1
-        id: buildozer
-        with:
-          command: buildozer android debug
-          buildozer_version: stable
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: package
-          path: ${{ steps.buildozer.outputs.filename }}

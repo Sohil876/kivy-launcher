@@ -70,6 +70,12 @@ osx.python_version = 3
 # Kivy version to use
 osx.kivy_version = 2.2.1
 
+# (bool) If True, then automatically accept SDK license
+# agreements. This is intended for automation only. If set to False,
+# the default, you will be shown the license when first running
+# buildozer.
+android.accept_sdk_license = True
+
 #
 # Android specific
 #
