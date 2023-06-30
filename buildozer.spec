@@ -84,11 +84,14 @@ fullscreen = 0
 # olive, purple, silver, teal.
 #android.presplash_color = #FFFFFF
 
+# (list) Permissions
+android.permissions = android.permission.WRITE_EXTERNAL_STORAGE, android.permission.READ_EXTERNAL_STORAGE, android.permission.MANAGE_EXTERNAL_STORAGE
+
 # (int) Android API to use
 android.api = 29
 
 # (int) Minimum API required
-android.minapi = 21
+android.minapi = 26
 
 # (int) Android SDK version to use
 android.sdk = 29
@@ -213,6 +216,7 @@ android.archs = armeabi-v7a,arm64-v8a
 [app:android.permissions]
 READ_EXTERNAL_STORAGE
 WRITE_EXTERNAL_STORAGE
+MANAGE_EXTERNAL_STORAGE
 ACCESS_LOCATION_EXTRA_COMMANDS
 ACCESS_NETWORK_STATE
 ACCESS_NOTIFICATION_POLICY
