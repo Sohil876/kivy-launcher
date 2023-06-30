@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma seperated e.g. requirements = sqlite3,kivy
-requirements = kivy, android
+requirements = kivy, kivymd, android
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -85,10 +85,10 @@ fullscreen = 0
 #android.presplash_color = #FFFFFF
 
 # (int) Android API to use
-# android.api = 30
+android.api = 29
 
 # (int) Minimum API required
-#android.minapi = 9
+android.minapi = 21
 
 # (int) Android SDK version to use
 #android.sdk = 20
