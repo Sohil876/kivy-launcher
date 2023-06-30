@@ -153,13 +153,13 @@ android.ndk = 25b
 #android.gradle_dependencies =
 
 # (bool) Skip byte compile for .py files
-# android.no-byte-compile-python = False
+android.no-byte-compile-python = True
 
 # (str) The format used to package the app for release mode (aab or apk or aar).
 android.release_artifact = apk
 
 # (str) The format used to package the app for debug mode (apk or aar).
-# android.debug_artifact = apk
+android.debug_artifact = apk
 
 # (str) python-for-android branch to use, defaults to stable
 p4a.branch = master
