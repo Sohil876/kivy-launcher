@@ -68,7 +68,7 @@ orientation = portrait
 osx.python_version = 3
 
 # Kivy version to use
-# osx.kivy_version = 1.9.1
+osx.kivy_version = 2.2.1
 
 #
 # Android specific
@@ -146,8 +146,23 @@ android.ndk = 25b
 # bootstrap)
 #android.gradle_dependencies =
 
+# (bool) Skip byte compile for .py files
+# android.no-byte-compile-python = False
+
+# (str) The format used to package the app for release mode (aab or apk or aar).
+android.release_artifact = apk
+
+# (str) The format used to package the app for debug mode (apk or aar).
+# android.debug_artifact = apk
+
 # (str) python-for-android branch to use, defaults to stable
 p4a.branch = master
+
+# (bool) enables Android auto backup feature (Android API >=23)
+android.allow_backup = True
+
+# (str) XML file for custom backup rules (see official auto backup documentation)
+# android.backup_rules =
 
 # (str) XML file to include as an intent filters in <activity> tag
 #android.manifest.intent_filters =
