@@ -9,12 +9,8 @@ env:
   PYTHONFORANDROID_PREREQUISITES_INSTALL_INTERACTIVE: 0
 
 jobs:
-  Integration:
-    strategy:
-      matrix:
-        os:
-          - 'ubuntu-latest'
-    runs-on: ${{ matrix.os }}
+  build:
+    runs-on: ubuntu-latest
     steps:
     - name: Setup python
       uses: actions/setup-python@v2
@@ -29,7 +25,6 @@ jobs:
     #- run: buildozer init
     - name: SDK, NDK and p4a download
       run: |
-        sed -i.bak "s/# android.accept_sdk_license = False/android.accept_sdk_license = True/" buildozer.spec
         sed -i.bak "s/#p4a.branch = master/p4a.branch = develop/" buildozer.spec
         buildozer android p4a -- --help
     # Install OS specific dependencies
@@ -41,9 +36,10 @@ jobs:
       run: |
         touch main.py
         buildozer android debug
-    - name: buildozer android release
-      run: |
-        touch main.py
-        export BUILDOZER_ALLOW_ORG_TEST_DOMAIN=1
-        buildozer android release
+   # - name: buildozer android release
+   #   env:
+   #     BUILDOZER_ALLOW_KIVY_ORG_DOMAIN: 1 # export BUILDOZER_ALLOW_ORG_TEST_DOMAIN=1
+  #    run: |
+    #    touch main.py
+    #    buildozer android release
 
